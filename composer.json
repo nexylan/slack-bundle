@@ -17,8 +17,6 @@
     "require-dev": {
         "phpunit/phpunit": "^5.2",
         "matthiasnoback/symfony-dependency-injection-test": "^0.7.6",
-        "satooshi/php-coveralls": "^1.0",
-        "codeclimate/php-test-reporter": "~0.3",
         "sllh/php-cs-fixer-styleci-bridge": "^1.5"
     },
     "autoload": {
