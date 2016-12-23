@@ -22,11 +22,15 @@ matrix:
     - php: 5.6
       env: SYMFONY_VERSION=3.0.*
     - php: 5.6
-      env: SYMFONY_VERSION=3.1.*@dev
+      env: SYMFONY_VERSION=3.1.*
+    - php: 5.6
+      env: SYMFONY_VERSION=3.2.*
+    - php: 5.6
+      env: SYMFONY_VERSION=dev-master
   allow_failures:
     - php: nightly
     - php: hhvm
-    - env: SYMFONY_VERSION=3.1.*@dev
+    - env: SYMFONY_VERSION=dev-master
 
 sudo: false
 
