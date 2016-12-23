@@ -14,6 +14,7 @@ namespace Nexy\SlackBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class NexySlackExtension extends Extension
@@ -26,11 +27,19 @@ class NexySlackExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $guzzleService = $config['guzzle_service'];
         $container->setParameter('nexy_slack.endpoint', $config['endpoint']);
-        unset($config['endpoint']);
+
+        // Unset the not needed keys for the Slack config.
+        unset($config['guzzle_service'], $config['endpoint']);
+
         $container->setParameter('nexy_slack.config', $config);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('client.xml');
+
+        if ($guzzleService) {
+            $container->getDefinition('nexy_slack.client')->addArgument(new Reference($guzzleService));
+        }
     }
 }

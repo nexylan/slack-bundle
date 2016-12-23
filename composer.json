@@ -19,6 +19,9 @@
         "matthiasnoback/symfony-dependency-injection-test": "^0.7.6",
         "sllh/php-cs-fixer-styleci-bridge": "^1.5"
     },
+    "suggest": {
+        "eightpoints/guzzle-bundle": "Make a custom Guzzle instance for Slack with ease"
+    },
     "autoload": {
         "psr-4": { "Nexy\\SlackBundle\\": "src" }
     },

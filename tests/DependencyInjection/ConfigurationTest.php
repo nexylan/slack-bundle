@@ -23,6 +23,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     public function testMinimalConfigurationProcess()
     {
         $expectedConfiguration = [
+            'guzzle_service' => null,
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
             'channel' => null,
             'username' => null,
@@ -44,6 +45,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     public function testFullConfigurationProcess()
     {
         $expectedConfiguration = [
+            'guzzle_service' => 'acme_guzzle',
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
             'channel' => 'dev',
             'username' => 'jdoe',
