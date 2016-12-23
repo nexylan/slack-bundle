@@ -26,6 +26,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('guzzle_service')
+                    ->defaultNull()
+                    ->info('If you want to use your own Guzzle instance, set the service here.')
+                ->end()
                 ->scalarNode('endpoint')
                     ->isRequired()->cannotBeEmpty()
                     ->info('The Slack API Incoming WebHooks URL.')

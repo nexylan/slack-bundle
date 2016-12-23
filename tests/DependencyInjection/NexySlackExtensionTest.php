@@ -14,6 +14,8 @@ namespace Nexy\SlackBundle\Tests\DependencyInjection;
 use Maknz\Slack\Client;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Nexy\SlackBundle\DependencyInjection\NexySlackExtension;
+use Nexy\SlackBundle\Tests\Fixtures\DependencyInjection\AcmeGuzzleExtension;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
@@ -59,6 +61,27 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
         $this->assertSame($slackConfig['channel'], $this->container->get('nexy_slack.client')->getDefaultChannel());
     }
 
+    public function testLoadWithGuzzleServiceConfiguration()
+    {
+        $guzzleService = 'acme_guzzle';
+        $endpoint = 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX';
+
+        $this->load([
+            'guzzle_service' => $guzzleService,
+            'endpoint' => $endpoint,
+        ]);
+
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 0, '%nexy_slack.endpoint%');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 1, '%nexy_slack.config%');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 2, new Reference('acme_guzzle'));
+
+        $this->assertAttributeSame(
+            $this->container->get($guzzleService),
+            'guzzle',
+            $this->container->get('nexy_slack.client')
+        );
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -66,6 +89,7 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
     {
         return [
             new NexySlackExtension(),
+            new AcmeGuzzleExtension(),
         ];
     }
 }

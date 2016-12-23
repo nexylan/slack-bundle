@@ -58,10 +58,15 @@ public function registerBundles()
 }
 ```
 
+## Configuration
+
 Configure the bundle to your needs (example with default values):
 
 ```yaml
 nexy_slack:
+
+    # If you want to use your own Guzzle instance, set the service here.
+    guzzle_service:       null
 
     # The Slack API Incoming WebHooks URL.
     endpoint:             ~ # Required
@@ -72,12 +77,66 @@ nexy_slack:
     unfurl_links:         false
     unfurl_media:         true
     allow_markdown:       true
-    markdown_in_attachments:  []
+    markdown_in_attachments: []
 ```
 
 Excepted `endpoint`, all the other configuration keys are related to the Slack client default settings.
 
 All those settings are described on the [maknz/slack documentation](https://github.com/maknz/slack#settings).
+
+### Custom Guzzle instance
+
+The Slack client accepts a third constructor parameter to pass a Guzzle instance instead of instantiating it itself.
+
+You can define it with the `guzzle_service` configuration key.
+
+The service can be created by yourself, or by using a Guzzle bundle. Some examples are described below.
+
+#### With manual service definition
+
+First, define your Guzzle service:
+
+```yaml
+# services.yml
+
+services:
+    guzzle.slack:
+        class: GuzzleHttp\Client
+        arguments: # First argument is the Guzzle options array.
+            - { timeout: 5 }
+```
+
+Then, fill the configuration with your service name:
+
+```yaml
+nexy_slack:
+    guzzle_service: guzzle.slack
+    endpoint: 'https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX'
+```
+
+That's it! Now the Slack client instance will use your Guzzle service.
+
+#### With the eightpoints/guzzle-bundle package
+
+This bundle lets you define more advanced Guzzle instances with ease.
+Plus, it is packaged with a [profiler integration](https://github.com/8p/GuzzleBundle#symfony-debug-toolbar--profiler),
+so you can see each Guzzle request.
+
+First, read the [documentation](https://github.com/8p/GuzzleBundle#installation) of this package to setup this bundle.
+
+Now you can define your Guzzle service from the bundle config, and link it to the Slack client:
+
+```yaml
+guzzle:
+    clients:
+        slack:
+            options:
+                timeout: 5
+
+nexy_slack:
+    guzzle_service: guzzle.client.slack
+    endpoint: 'https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX'
+```
 
 ## Usage
 
