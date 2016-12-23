@@ -35,7 +35,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         ];
 
         $sources = [
-            __DIR__.'/../fixtures/config/config_minimal.yml',
+            __DIR__.'/../Fixtures/config/config_minimal.yml',
         ];
 
         $this->assertProcessedConfigurationEquals($expectedConfiguration, $sources);
@@ -56,7 +56,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         ];
 
         $sources = [
-            __DIR__.'/../fixtures/config/config_full.yml',
+            __DIR__.'/../Fixtures/config/config_full.yml',
         ];
 
         $this->assertProcessedConfigurationEquals($expectedConfiguration, $sources);
