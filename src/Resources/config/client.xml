@@ -4,8 +4,11 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="nexy_slack.client.class">Maknz\Slack\Client</parameter>
+    </parameters>
     <services>
-        <service id="nexy_slack.client" class="Maknz\Slack\Client">
+        <service id="nexy_slack.client" class="%nexy_slack.client.class%">
             <argument>%nexy_slack.endpoint%</argument>
             <argument>%nexy_slack.config%</argument>
         </service>
