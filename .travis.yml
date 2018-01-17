@@ -7,6 +7,8 @@ language: php
 php:
   - 5.6
   - 7.0
+  - 7.1
+  - 7.2
   - nightly
 
 env:
@@ -22,7 +24,7 @@ matrix:
       env: SYMFONY_VERSION=2.*
     - php: 5.6
       env: SYMFONY_VERSION=3.*
-    - php: 5.6
+    - php: 7.2
       env: SYMFONY_VERSION=dev-master
   allow_failures:
     - php: nightly
