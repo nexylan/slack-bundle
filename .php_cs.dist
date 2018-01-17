@@ -1,0 +1,48 @@
+<?php
+
+$header = <<<'HEADER'
+This file is part of the Nexylan packages.
+
+(c) Nexylan SAS <contact@nexylan.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+HEADER;
+
+$rules = [
+    '@Symfony' => true,
+    '@Symfony:risky' => true,
+    '@PHP56Migration' => true,
+    '@PHP56Migration:risky' => true,
+    '@PHPUnit57Migration:risky' => true,
+    'array_syntax' => [
+        'syntax' => 'short',
+    ],
+    'combine_consecutive_issets' => true,
+    'combine_consecutive_unsets' => true,
+    'header_comment' => [
+        'header' => $header,
+    ],
+    'no_extra_consecutive_blank_lines' => true,
+    'no_php4_constructor' => true,
+    'no_useless_else' => true,
+    'no_useless_return' => true,
+    'ordered_class_elements' => true,
+    'ordered_imports' => true,
+    'phpdoc_order' => true,
+    'php_unit_strict' => true,
+];
+
+$finder = PhpCsFixer\Finder::create()
+    ->in([
+        __DIR__.'/src',
+        __DIR__.'/tests',
+    ])
+;
+
+return PhpCsFixer\Config::create()
+    ->setFinder($finder)
+    ->setRiskyAllowed(true)
+    ->setRules($rules)
+    ->setUsingCache(true)
+;

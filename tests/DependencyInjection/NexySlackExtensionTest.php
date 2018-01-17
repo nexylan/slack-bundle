@@ -22,12 +22,11 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class NexySlackExtensionTest extends AbstractExtensionTestCase
 {
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage The child node "endpoint" at path "nexy_slack" must be configured.
-     */
     public function testLoadWithNoConfiguration()
     {
+        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+        $this->expectExceptionMessage('The child node "endpoint" at path "nexy_slack" must be configured.');
+
         $this->load();
     }
 
