@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Nexylan packages.
  *
@@ -11,10 +13,10 @@
 
 namespace Nexy\SlackBundle\Tests\DependencyInjection;
 
-use Maknz\Slack\Client;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Nexy\Slack\Client;
 use Nexy\SlackBundle\DependencyInjection\NexySlackExtension;
-use Nexy\SlackBundle\Tests\Fixtures\DependencyInjection\AcmeGuzzleExtension;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -22,25 +24,18 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class NexySlackExtensionTest extends AbstractExtensionTestCase
 {
-    public function testLoadWithNoConfiguration()
+    public function testLoadWithNoConfiguration(): void
     {
-        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+        $this->expectException(InvalidConfigurationException::class);
         $this->expectExceptionMessage('The child node "endpoint" at path "nexy_slack" must be configured.');
 
         $this->load();
     }
 
-    public function testLoadWithMinimalConfiguration()
+    public function testLoadWithMinimalConfiguration(): void
     {
         $endpoint = 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX';
         $slackConfig = [
-            'channel' => null,
-            'username' => null,
-            'icon' => null,
-            'link_names' => false,
-            'unfurl_links' => false,
-            'unfurl_media' => true,
-            'allow_markdown' => true,
             'markdown_in_attachments' => [],
         ];
 
@@ -55,30 +50,29 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 0, '%nexy_slack.endpoint%');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 1, '%nexy_slack.config%');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 2, new Reference('nexy_slack.http.client'));
 
-        $this->assertSame($endpoint, $this->container->get('nexy_slack.client')->getEndPoint());
-        $this->assertSame($slackConfig['channel'], $this->container->get('nexy_slack.client')->getDefaultChannel());
+        $this->assertContainerBuilderHasAlias('nexy_slack.http.client', 'httplug.client');
     }
 
-    public function testLoadWithGuzzleServiceConfiguration()
+    public function testLoadWithCustomConfiguration(): void
     {
-        $guzzleService = 'acme_guzzle';
         $endpoint = 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX';
+        $slackConfig = [
+            'channel' => 'test',
+            'markdown_in_attachments' => [],
+        ];
 
         $this->load([
-            'guzzle_service' => $guzzleService,
+            'http' => [
+                'client' => 'httplug.curl',
+            ],
             'endpoint' => $endpoint,
+            'channel' => 'test',
         ]);
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 0, '%nexy_slack.endpoint%');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 1, '%nexy_slack.config%');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 2, new Reference('acme_guzzle'));
-
-        $this->assertAttributeSame(
-            $this->container->get($guzzleService),
-            'guzzle',
-            $this->container->get('nexy_slack.client')
-        );
+        $this->assertContainerBuilderHasParameter('nexy_slack.config', $slackConfig);
+        $this->assertContainerBuilderHasAlias('nexy_slack.http.client', 'httplug.curl');
     }
 
     /**
@@ -88,7 +82,6 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
     {
         return [
             new NexySlackExtension(),
-            new AcmeGuzzleExtension(),
         ];
     }
 }

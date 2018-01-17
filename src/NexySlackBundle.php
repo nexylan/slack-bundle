@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Nexylan packages.
  *
@@ -16,6 +18,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-class NexySlackBundle extends Bundle
+final class NexySlackBundle extends Bundle
 {
 }

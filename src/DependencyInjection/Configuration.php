@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Nexylan packages.
  *
@@ -17,30 +19,32 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('nexy_slack');
 
         $rootNode
             ->children()
-                ->scalarNode('guzzle_service')
-                    ->defaultNull()
-                    ->info('If you want to use your own Guzzle instance, set the service here.')
+                ->arrayNode('http')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('client')->defaultValue('httplug.client')->end()
+                    ->end()
                 ->end()
                 ->scalarNode('endpoint')
                     ->isRequired()->cannotBeEmpty()
                     ->info('The Slack API Incoming WebHooks URL.')
                 ->end()
-                ->scalarNode('channel')->defaultNull()->end()
-                ->scalarNode('username')->defaultNull()->end()
-                ->scalarNode('icon')->defaultNull()->end()
-                ->booleanNode('link_names')->defaultFalse()->end()
-                ->booleanNode('unfurl_links')->defaultFalse()->end()
-                ->booleanNode('unfurl_media')->defaultTrue()->end()
-                ->booleanNode('allow_markdown')->defaultTrue()->end()
+                ->scalarNode('channel')->end()
+                ->scalarNode('username')->end()
+                ->scalarNode('icon')->end()
+                ->booleanNode('link_names')->end()
+                ->booleanNode('unfurl_links')->end()
+                ->booleanNode('unfurl_media')->end()
+                ->booleanNode('allow_markdown')->end()
                 ->arrayNode('markdown_in_attachments')
                     ->prototype('scalar')->end()
                 ->end()

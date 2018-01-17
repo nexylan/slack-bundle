@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- nexylan/slack v2 support
+
+### Changed
+- PHP strict typing
+- Classes are now final
+
+### Removed
+- PHP <7.1 support
+- Symfony <3.3 support
+- nexylan/slack <2 support
 
 ## [1.1.2] - 2018-01-18
 ### Fixed

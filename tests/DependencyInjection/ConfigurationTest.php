@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Nexylan packages.
  *
@@ -20,18 +22,13 @@ use Nexy\SlackBundle\DependencyInjection\NexySlackExtension;
  */
 class ConfigurationTest extends AbstractExtensionConfigurationTestCase
 {
-    public function testMinimalConfigurationProcess()
+    public function testMinimalConfigurationProcess(): void
     {
         $expectedConfiguration = [
-            'guzzle_service' => null,
+            'http' => [
+                'client' => 'httplug.client',
+            ],
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
-            'channel' => null,
-            'username' => null,
-            'icon' => null,
-            'link_names' => false,
-            'unfurl_links' => false,
-            'unfurl_media' => true,
-            'allow_markdown' => true,
             'markdown_in_attachments' => [],
         ];
 
@@ -42,10 +39,12 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         $this->assertProcessedConfigurationEquals($expectedConfiguration, $sources);
     }
 
-    public function testFullConfigurationProcess()
+    public function testFullConfigurationProcess(): void
     {
         $expectedConfiguration = [
-            'guzzle_service' => 'acme_guzzle',
+            'http' => [
+                'client' => 'httplug.curl',
+            ],
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
             'channel' => 'dev',
             'username' => 'jdoe',

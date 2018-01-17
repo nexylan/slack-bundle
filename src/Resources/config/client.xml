@@ -5,9 +5,10 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="nexy_slack.client" class="Maknz\Slack\Client" public="true">
+        <service id="nexy_slack.client" class="Nexy\Slack\Client" public="true">
             <argument>%nexy_slack.endpoint%</argument>
             <argument>%nexy_slack.config%</argument>
+            <argument type="service" id="nexy_slack.http.client" />
         </service>
     </services>
 </container>
