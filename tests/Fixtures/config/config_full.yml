@@ -1,5 +1,6 @@
 nexy_slack:
-  guzzle_service: acme_guzzle
+  http:
+    client: httplug.curl
   endpoint: https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX
   channel: dev
   username: jdoe

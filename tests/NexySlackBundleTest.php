@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Nexylan packages.
  *
@@ -24,14 +26,14 @@ class NexySlackBundleTest extends AbstractContainerBuilderTestCase
      */
     protected $bundle;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->bundle = new NexySlackBundle();
     }
 
-    public function testBuild()
+    public function testBuild(): void
     {
         $this->bundle->build($this->container);
     }
