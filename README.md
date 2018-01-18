@@ -1,6 +1,6 @@
 # NexySlackBundle
 
-Symfony bundle integration of the popular [maknz/slack](https://github.com/maknz/slack) library.
+Symfony bundle integration of the [nexylan/slack](https://github.com/nexylan/slack) library (old popular `maknz/slack`).
 
 [![Latest Stable Version](https://poser.pugx.org/nexylan/slack-bundle/v/stable)](https://packagist.org/packages/nexylan/slack-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/nexylan/slack-bundle/v/unstable)](https://packagist.org/packages/nexylan/slack-bundle)
@@ -23,7 +23,8 @@ Symfony bundle integration of the popular [maknz/slack](https://github.com/maknz
 All the installation and usage instructions are located in this README.
 Check it for specific version:
 
-* [__1.x__](https://github.com/nexylan/NexySlackBundle/tree/master) with support for Symfony `>=2.7`
+* [__1.x__](https://github.com/nexylan/NexySlackBundle/tree/1.x) with support for Symfony `>=2.7`
+* [__2.x__](https://github.com/nexylan/NexySlackBundle/tree/master) with support for Symfony `>=3.4`
 
 ## Prerequisites
 
@@ -37,8 +38,10 @@ This version of the project requires:
 First of all, you need to require this library through composer:
 
 ``` bash
-$ composer require nexylan/slack-bundle
+$ composer require nexylan/slack-bundle php-http/guzzle6-adapter
 ```
+
+Why `php-http/guzzle6-adapter`? We are decoupled from any HTTP messaging client thanks to [HTTPlug](http://httplug.io/).
 
 Then, enable the bundle on the `AppKernel` class:
 
@@ -49,6 +52,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
+        new Http\HttplugBundle\HttplugBundle(),
         new Nexy\SlackBundle\NexySlackBundle(),
     );
 
@@ -60,13 +64,17 @@ public function registerBundles()
 
 ## Configuration
 
+If it is not already done, you have to configure httplug-bundle first.
+Check the [official documentation](http://docs.php-http.org/en/latest/integrations/symfony-bundle.html) for this.
+
 Configure the bundle to your needs (example with default values):
 
 ```yaml
 nexy_slack:
 
-    # If you want to use your own Guzzle instance, set the service here.
-    guzzle_service:       null
+    # If you want to use an another httplug client service.
+    http:
+        client: httplug.client
 
     # The Slack API Incoming WebHooks URL.
     endpoint:             ~ # Required
@@ -82,61 +90,7 @@ nexy_slack:
 
 Excepted `endpoint`, all the other configuration keys are related to the Slack client default settings.
 
-All those settings are described on the [maknz/slack documentation](https://github.com/maknz/slack#settings).
-
-### Custom Guzzle instance
-
-The Slack client accepts a third constructor parameter to pass a Guzzle instance instead of instantiating it itself.
-
-You can define it with the `guzzle_service` configuration key.
-
-The service can be created by yourself, or by using a Guzzle bundle. Some examples are described below.
-
-#### With manual service definition
-
-First, define your Guzzle service:
-
-```yaml
-# services.yml
-
-services:
-    guzzle.slack:
-        class: GuzzleHttp\Client
-        arguments: # First argument is the Guzzle options array.
-            - { timeout: 5 }
-```
-
-Then, fill the configuration with your service name:
-
-```yaml
-nexy_slack:
-    guzzle_service: guzzle.slack
-    endpoint: 'https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX'
-```
-
-That's it! Now the Slack client instance will use your Guzzle service.
-
-#### With the eightpoints/guzzle-bundle package
-
-This bundle lets you define more advanced Guzzle instances with ease.
-Plus, it is packaged with a [profiler integration](https://github.com/8p/GuzzleBundle#symfony-debug-toolbar--profiler),
-so you can see each Guzzle request.
-
-First, read the [documentation](https://github.com/8p/GuzzleBundle#installation) of this package to setup this bundle.
-
-Now you can define your Guzzle service from the bundle config, and link it to the Slack client:
-
-```yaml
-guzzle:
-    clients:
-        slack:
-            options:
-                timeout: 5
-
-nexy_slack:
-    guzzle_service: guzzle.client.slack
-    endpoint: 'https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX'
-```
+All those settings are described on the [nexylan/slack documentation](https://github.com/nexylan/slack#settings).
 
 ## Usage
 
@@ -149,7 +103,7 @@ Here is an example:
 
 namespace AppBundle\Controller;
 
-use Maknz\Slack\Attachment;
+use Nexy\Slack\Attachment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
@@ -167,15 +121,14 @@ class DefaultController extends Controller
             ->setText('This is an amazing message!')
         ;
 
-        $message->attach(new Attachment([
-            'color'     => '#CCC',
-            'text'      => 'More info about attachment on <https://api.slack.com/docs/formatting|Slack documentation>!',
-            'mrkdwn_in' => ['text'],
-        ]));
+        $message->attach((new Attachment())
+             ->setFallback('Some fallback text')
+             ->setText('The attachment text')
+         );
 
         $slack->sendMessage($message);
     }
 }
 ```
 
-All the how to manipulate the Slack client is on the [maknz/slack documentation](https://github.com/maknz/slack#sending-messages).
+All the how to manipulate the Slack client is on the [nexylan/slack documentation](https://github.com/nexylan/slack#sending-messages).
