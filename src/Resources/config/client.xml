@@ -15,8 +15,7 @@
             <argument>%nexy_slack.endpoint%</argument>
             <argument>%nexy_slack.config%</argument>
             <argument type="service" id="nexy_slack.http.client"/>
-            <deprecated>The "%service_id%" service is deprecated since symfony v4.0,
-                use "Nexy\Slack\Client" instead.</deprecated>
+            <deprecated>The "%service_id%" service is deprecated since symfony v4.0, use "Nexy\Slack\Client" instead.</deprecated>
         </service>
     </services>
 </container>
