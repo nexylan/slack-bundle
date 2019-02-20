@@ -45,6 +45,7 @@ final class Configuration implements ConfigurationInterface
                     ->info('The Slack API Incoming WebHooks URL.')
                 ->end()
                 ->scalarNode('channel')->end()
+                ->booleanNode('sticky_channel')->defaultFalse()->end()
                 ->scalarNode('username')->end()
                 ->scalarNode('icon')->end()
                 ->booleanNode('link_names')->end()

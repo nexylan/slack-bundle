@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^7.1",
-        "nexylan/slack": "^2.0",
+        "nexylan/slack": "^2.2",
         "php-http/httplug-bundle": "^1.8",
         "symfony/http-kernel": "^3.4 || ^4.0"
     },
