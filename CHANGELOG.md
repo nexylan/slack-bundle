@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.1.0]
+### Added
+- Add `sticky_channel` option support
+
+## [2.0.1]
+### Fixed
+- Symfony 4.2 support for dependency injection
+
 ## [2.0.0]
 ### Added
 - nexylan/slack v2 support

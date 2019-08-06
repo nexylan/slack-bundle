@@ -28,6 +28,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
             'http' => [
                 'client' => 'httplug.client',
             ],
+            'sticky_channel' => false,
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
             'markdown_in_attachments' => [],
         ];
@@ -45,6 +46,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
             'http' => [
                 'client' => 'httplug.curl',
             ],
+            'sticky_channel' => false,
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
             'channel' => 'dev',
             'username' => 'jdoe',

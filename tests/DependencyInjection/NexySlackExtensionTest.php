@@ -37,6 +37,7 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
         $endpoint = 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX';
         $slackConfig = [
             'markdown_in_attachments' => [],
+            'sticky_channel' => false,
         ];
 
         $this->load([
@@ -61,6 +62,7 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
         $slackConfig = [
             'channel' => 'test',
             'markdown_in_attachments' => [],
+            'sticky_channel' => false,
         ];
 
         $this->load([
