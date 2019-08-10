@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Nexy\SlackBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Nexy\Slack\Client;
 use Nexy\SlackBundle\DependencyInjection\NexySlackExtension;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Reference;
