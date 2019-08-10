@@ -53,6 +53,7 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('Nexy\Slack\Client', 1, '%nexy_slack.config%');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('Nexy\Slack\Client', 2, new Reference('nexy_slack.http.client'));
 
+        $this->assertContainerBuilderHasAlias('nexy_slack.client', 'Nexy\Slack\Client');
         $this->assertContainerBuilderHasAlias('nexy_slack.http.client', 'httplug.client');
     }
 
