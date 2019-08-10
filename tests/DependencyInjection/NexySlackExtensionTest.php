@@ -47,7 +47,7 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('nexy_slack.endpoint', $endpoint);
         $this->assertContainerBuilderHasParameter('nexy_slack.config', $slackConfig);
 
-        $this->assertContainerBuilderHasService('Nexy\Slack\Client', Client::class);
+        $this->assertContainerBuilderHasService('Nexy\Slack\Client');
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('Nexy\Slack\Client', 0, '%nexy_slack.endpoint%');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('Nexy\Slack\Client', 1, '%nexy_slack.config%');
