@@ -16,6 +16,8 @@ namespace Nexy\SlackBundle\Tests\DependencyInjection;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
 use Nexy\SlackBundle\DependencyInjection\Configuration;
 use Nexy\SlackBundle\DependencyInjection\NexySlackExtension;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
@@ -68,7 +70,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getContainerExtension()
+    protected function getContainerExtension(): ExtensionInterface
     {
         return new NexySlackExtension();
     }
@@ -76,7 +78,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration();
     }
