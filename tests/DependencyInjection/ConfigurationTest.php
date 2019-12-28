@@ -29,6 +29,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         $expectedConfiguration = [
             'http' => [
                 'client' => 'httplug.client',
+                'request_factory' => 'nexy_slack.request_factory.default',
+                'stream_factory' => 'nexy_slack.stream_factory.default',
             ],
             'sticky_channel' => false,
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
@@ -47,6 +49,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         $expectedConfiguration = [
             'http' => [
                 'client' => 'httplug.curl',
+                'request_factory' => 'nexy_slack.request_factory.default',
+                'stream_factory' => 'nexy_slack.stream_factory.default',
             ],
             'sticky_channel' => false,
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
