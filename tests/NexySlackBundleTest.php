@@ -33,6 +33,9 @@ class NexySlackBundleTest extends AbstractContainerBuilderTestCase
         $this->bundle = new NexySlackBundle();
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testBuild(): void
     {
         $this->bundle->build($this->container);

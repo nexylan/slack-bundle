@@ -16,6 +16,8 @@ namespace Nexy\SlackBundle\Tests\DependencyInjection;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
 use Nexy\SlackBundle\DependencyInjection\Configuration;
 use Nexy\SlackBundle\DependencyInjection\NexySlackExtension;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
@@ -27,6 +29,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         $expectedConfiguration = [
             'http' => [
                 'client' => 'httplug.client',
+                'request_factory' => 'nexy_slack.request_factory.default',
+                'stream_factory' => 'nexy_slack.stream_factory.default',
             ],
             'sticky_channel' => false,
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
@@ -45,6 +49,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         $expectedConfiguration = [
             'http' => [
                 'client' => 'httplug.curl',
+                'request_factory' => 'nexy_slack.request_factory.default',
+                'stream_factory' => 'nexy_slack.stream_factory.default',
             ],
             'sticky_channel' => false,
             'endpoint' => 'https://hooks.slack.com/services/XXXXX/XXXXX/XXXXXXXXXX',
@@ -68,7 +74,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getContainerExtension()
+    protected function getContainerExtension(): ExtensionInterface
     {
         return new NexySlackExtension();
     }
@@ -76,7 +82,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration();
     }
