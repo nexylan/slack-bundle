@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.1]
+### Fixed
+- Symfony 5 and nexylan/slack 3.0 support
+- Rollback to the actual service id as a snake-case version
+
 ## [2.2.0]
 ### Added
 - Add client service autowiring
