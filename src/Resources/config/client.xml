@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="Nexy\Slack\Client" public="true">
+        <service id="nexy_slack.client" class="Nexy\Slack\Client" public="true">
             <argument type="service" id="nexy_slack.http.client" />
             <argument type="service" id="nexy_slack.http.request_factory" />
             <argument type="service" id="nexy_slack.http.stream_factory" />
@@ -13,7 +13,7 @@
             <argument>%nexy_slack.config%</argument>
         </service>
 
-        <service id="nexy_slack.client" alias="Nexy\Slack\Client"/>
+        <service id="Nexy\Slack\Client" alias="nexy_slack.client"/>
 
         <service id="nexy_slack.request_factory.default" class="Psr\Http\Message\RequestFactoryInterface">
             <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findRequestFactory" />

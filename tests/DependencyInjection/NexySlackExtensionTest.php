@@ -47,15 +47,15 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('nexy_slack.endpoint', $endpoint);
         $this->assertContainerBuilderHasParameter('nexy_slack.config', $slackConfig);
 
-        $this->assertContainerBuilderHasService(Client::class);
+        $this->assertContainerBuilderHasService('nexy_slack.client');
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 0, new Reference('nexy_slack.http.client'));
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 1, new Reference('nexy_slack.http.request_factory'));
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 2, new Reference('nexy_slack.http.stream_factory'));
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 3, '%nexy_slack.endpoint%');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 4, '%nexy_slack.config%');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 0, new Reference('nexy_slack.http.client'));
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 1, new Reference('nexy_slack.http.request_factory'));
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 2, new Reference('nexy_slack.http.stream_factory'));
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 3, '%nexy_slack.endpoint%');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('nexy_slack.client', 4, '%nexy_slack.config%');
 
-        $this->assertContainerBuilderHasAlias('nexy_slack.client', Client::class);
+        $this->assertContainerBuilderHasAlias(Client::class, 'nexy_slack.client');
         $this->assertContainerBuilderHasAlias('nexy_slack.http.client', 'httplug.client');
         $this->assertContainerBuilderHasAlias('nexy_slack.http.request_factory', 'nexy_slack.request_factory.default');
         $this->assertContainerBuilderHasAlias('nexy_slack.http.stream_factory', 'nexy_slack.stream_factory.default');
