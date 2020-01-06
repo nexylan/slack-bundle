@@ -31,6 +31,8 @@ final class NexySlackExtension extends Extension
 
         $container->setParameter('nexy_slack.endpoint', $config['endpoint']);
         $container->setAlias('nexy_slack.http.client', new Alias($config['http']['client'], false));
+        $container->setAlias('nexy_slack.http.request_factory', new Alias($config['http']['request_factory'], false));
+        $container->setAlias('nexy_slack.http.stream_factory', new Alias($config['http']['stream_factory'], false));
 
         // Unset the not needed keys for the Slack config.
         unset($config['http'], $config['endpoint']);

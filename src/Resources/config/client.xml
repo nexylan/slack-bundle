@@ -6,11 +6,21 @@
 
     <services>
         <service id="Nexy\Slack\Client" public="true">
+            <argument type="service" id="nexy_slack.http.client" />
+            <argument type="service" id="nexy_slack.http.request_factory" />
+            <argument type="service" id="nexy_slack.http.stream_factory" />
             <argument>%nexy_slack.endpoint%</argument>
             <argument>%nexy_slack.config%</argument>
-            <argument type="service" id="nexy_slack.http.client" />
         </service>
 
         <service id="nexy_slack.client" alias="Nexy\Slack\Client"/>
+
+        <service id="nexy_slack.request_factory.default" class="Psr\Http\Message\RequestFactoryInterface">
+            <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findRequestFactory" />
+        </service>
+
+        <service id="nexy_slack.stream_factory.default" class="Psr\Http\Message\StreamFactoryInterface">
+            <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findStreamFactory" />
+        </service>
     </services>
 </container>

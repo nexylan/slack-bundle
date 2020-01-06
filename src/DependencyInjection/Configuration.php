@@ -38,6 +38,8 @@ final class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('client')->defaultValue('httplug.client')->end()
+                        ->scalarNode('request_factory')->defaultValue('nexy_slack.request_factory.default')->end()
+                        ->scalarNode('stream_factory')->defaultValue('nexy_slack.stream_factory.default')->end()
                     ->end()
                 ->end()
                 ->scalarNode('endpoint')

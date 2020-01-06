@@ -49,12 +49,16 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderHasService(Client::class);
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 0, '%nexy_slack.endpoint%');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 1, '%nexy_slack.config%');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 2, new Reference('nexy_slack.http.client'));
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 0, new Reference('nexy_slack.http.client'));
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 1, new Reference('nexy_slack.http.request_factory'));
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 2, new Reference('nexy_slack.http.stream_factory'));
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 3, '%nexy_slack.endpoint%');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(Client::class, 4, '%nexy_slack.config%');
 
         $this->assertContainerBuilderHasAlias('nexy_slack.client', Client::class);
         $this->assertContainerBuilderHasAlias('nexy_slack.http.client', 'httplug.client');
+        $this->assertContainerBuilderHasAlias('nexy_slack.http.request_factory', 'nexy_slack.request_factory.default');
+        $this->assertContainerBuilderHasAlias('nexy_slack.http.stream_factory', 'nexy_slack.stream_factory.default');
     }
 
     public function testLoadWithCustomConfiguration(): void
@@ -81,7 +85,7 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new NexySlackExtension(),
