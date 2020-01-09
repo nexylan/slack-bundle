@@ -12,14 +12,18 @@
     "require": {
         "php": "^7.3",
         "nexylan/slack": "^3.0",
+        "php-http/discovery": "^1.6",
         "php-http/httplug-bundle": "^1.17",
         "php-http/httplug": "^2.0",
         "symfony/http-kernel": "^3.4 || ^4.0 || ^5.0"
     },
     "require-dev": {
+        "http-interop/http-factory-guzzle": "^1.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+        "php-http/guzzle6-adapter": "^1.1.1 || ^2.0",
         "php-http/mock-client": "^1.1",
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^8.0",
+        "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.0"
     },
     "suggest": {
         "eightpoints/guzzle-bundle": "Make a custom Guzzle instance for Slack with ease"
