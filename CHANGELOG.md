@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.2]
+### Fixed
+- PSR interfaces issues with php-http/httplug to v1 on update
+
 ## [2.2.1]
 ### Fixed
 - Symfony 5 and nexylan/slack 3.0 support
