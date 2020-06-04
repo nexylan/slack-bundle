@@ -14,6 +14,7 @@
         </service>
 
         <service id="Nexy\Slack\Client" alias="nexy_slack.client"/>
+        <service id="Nexy\Slack\ClientInterface" alias="nexy_slack.client"/>
 
         <service id="nexy_slack.request_factory.default" class="Psr\Http\Message\RequestFactoryInterface">
             <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findRequestFactory" />
