@@ -38,7 +38,7 @@ This version of the project requires:
 First of all, you need to require this library through composer:
 
 ``` bash
-$ composer require nexylan/slack-bundle php-http/guzzle6-adapter
+$ composer require nexylan/slack-bundle php-http/guzzle6-adapter http-interop/http-factory-guzzle
 ```
 
 Why `php-http/guzzle6-adapter`? We are decoupled from any HTTP messaging client thanks to [HTTPlug](http://httplug.io/).
