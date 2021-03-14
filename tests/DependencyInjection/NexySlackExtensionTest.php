@@ -27,7 +27,7 @@ class NexySlackExtensionTest extends AbstractExtensionTestCase
     public function testLoadWithNoConfiguration(): void
     {
         $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('The child node "endpoint" at path "nexy_slack" must be configured.');
+        $this->expectExceptionMessageMatches('/The child (config|node) "endpoint" (under|at path) "nexy_slack" must be configured/');
 
         $this->load();
     }
