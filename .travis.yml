@@ -50,7 +50,7 @@ install:
 
 script:
   - composer validate
-  - XDEBUG_MODE=coverage php vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
+  - php vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 
 after_script:
   - coveralls -v
