@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.4 || ^8.0",
         "nexylan/slack": "^3.0",
         "php-http/discovery": "^1.6",
         "php-http/httplug-bundle": "^1.17",
@@ -22,7 +22,7 @@
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "php-http/guzzle6-adapter": "^1.1.1 || ^2.0",
         "php-http/mock-client": "^1.1",
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^8.4",
         "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.0"
     },
     "suggest": {

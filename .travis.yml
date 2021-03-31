@@ -5,7 +5,8 @@ branches:
 language: php
 
 php:
-  - 7.3
+  - 7.4
+  - 8.0
   - nightly
 
 env:
@@ -15,15 +16,19 @@ env:
 matrix:
   fast_finish: true
   include:
-    - php: 7.3
+    - php: 7.4
       env: COMPOSER_FLAGS="--prefer-lowest"
-    - php: 7.3
-      env: SYMFONY_VERSION=3.*
-    - php: 7.3
+    - php: 7.4
       env: SYMFONY_VERSION=4.*
-    - php: 7.3
+    - php: 7.4
       env: SYMFONY_VERSION=5.*
-    - php: 7.3
+    - php: 7.4
+      env: SYMFONY_VERSION=dev-master
+    - php: 8.0
+      env: SYMFONY_VERSION=4.*
+    - php: 8.0
+      env: SYMFONY_VERSION=5.*
+    - php: 8.0
       env: SYMFONY_VERSION=dev-master
   allow_failures:
     - php: nightly
@@ -45,7 +50,7 @@ install:
 
 script:
   - composer validate
-  - php vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
+  - XDEBUG_MODE=coverage php vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 
 after_script:
   - coveralls -v
